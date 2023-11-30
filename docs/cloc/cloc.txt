@@ -1,13 +1,13 @@
-      50 text files.
-classified 48 files      48 unique files.                              
+      51 text files.
+classified 49 files      49 unique files.                              
        3 files ignored.
 
-github.com/AlDanial/cloc v 1.96  T=0.06 s (818.7 files/s, 50331.8 lines/s)
+github.com/AlDanial/cloc v 1.96  T=0.06 s (808.3 files/s, 50578.9 lines/s)
 ------------------------------------------------------------------------------------
 Language                          files          blank        comment           code
 ------------------------------------------------------------------------------------
 C#                                   26            260            121           1798
-YAML                                  5             21              1            212
+YAML                                  6             38             46            265
 Markdown                              4             62              2            125
 MSBuild script                        4             19              0            100
 Visual Studio Solution                1              1              1             85
@@ -15,5 +15,5 @@ XML                                   3             14              6           
 Mustache                              3              8              0             27
 JSON                                  2              0              0             17
 ------------------------------------------------------------------------------------
-SUM:                                 48            385            131           2435
+SUM:                                 49            402            176           2488
 ------------------------------------------------------------------------------------
