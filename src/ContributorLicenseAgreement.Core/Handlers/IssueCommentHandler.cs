@@ -83,9 +83,9 @@ namespace ContributorLicenseAgreement.Core.Handlers
 
             var primitive = primitivesData.First();
 
-            var gitHubAppName = await factory.GetAppNameBasedOnInstallationId(
+            var gitHubAppName = factory.GetAppNameBasedOnInstallationId(
                 gitOpsPayload.PlatformContext.OrganizationName,
-                gitOpsPayload.PlatformContext.InstallationId) ?? flavorSettings[gitOpsPayload.PlatformContext.Dns].Name;
+                gitOpsPayload.PlatformContext.InstallationId).Result ?? flavorSettings[gitOpsPayload.PlatformContext.Dns].Name;
 
             var (commentAction, company) = ParseComment(
                 gitOpsPayload.PullRequestComment.Body,
