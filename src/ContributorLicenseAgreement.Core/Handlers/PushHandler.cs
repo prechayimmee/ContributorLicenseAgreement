@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-namespace ContributorLicenseAgreement.Core.Handlers
+using ContributorLicenseAgreement.Core.Helpers
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -14,7 +14,7 @@ namespace ContributorLicenseAgreement.Core.Handlers
     using GitOps.Abstractions;
     using GitOps.Abstractions.Extensions;
     using GitOps.Apps.Abstractions.AppEventHandler;
-    using GitOps.Apps.Abstractions.Models;
+    using System;
     using GitOps.Clients.GitHub;
     using Microsoft.Extensions.Logging;
 
