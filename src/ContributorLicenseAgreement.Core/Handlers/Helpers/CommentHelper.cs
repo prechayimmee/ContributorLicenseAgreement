@@ -14,7 +14,8 @@ namespace ContributorLicenseAgreement.Core.Handlers.Helpers
     using GitOps.Abstractions;
     using GitOps.Apps.Abstractions.Models;
     using GitOps.Clients.GitHub;
-using ContributorLicenseAgreement.Core.Handlers.Helpers;
+using ContributorLicenseAgreement.Core.Primitives.Data;
+using ContributorLicenseAgreement.Core.Handlers.Model;
     using GitOps.Clients.GitHub.Configuration;
 using ContributorLicenseAgreement.Core.Primitives.Data;
     using Stubble.Core.Builders;
@@ -93,7 +94,7 @@ using ContributorLicenseAgreement.Core.Handlers.Model;
                 $"{typeof(CLA).Namespace}.CLA-Error-Company.mustache", mustacheParams);
         }
 
-        internal Comment GenerateFailureComment(GitOpsPayload payload, string gitHubUser)
+        internal Comment GenerateFailureComment(string gitHubUser, string company, string gitHubUser)
         {
             var gitHubAppName = clientAdapterFactory.GetAppNameBasedOnInstallationId(
                 payload.PlatformContext.OrganizationName,
