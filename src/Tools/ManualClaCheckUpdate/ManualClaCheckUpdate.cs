@@ -9,7 +9,7 @@ namespace ManualClaCheckUpdate
     using System.Diagnostics.CodeAnalysis;
     using System.Net.Http;
     using CommandLine;
-    using ContributorLicenseAgreement.Core;
+    using ContributorLicenseAgreement.Core.Handlers.Model;
     using GitHubJwt;
     using GitOps.Clients.Azure.Telemetry;
     using GitOps.Clients.GitHub;
@@ -44,7 +44,7 @@ namespace ManualClaCheckUpdate
             });
         }
 
-        private static void UpdateClaCheckWithExceptionHandlingAndLogging(
+        private static async Task UpdateClaCheckWithExceptionHandlingAndLogging(
             IHttpClientFactory httpClientFactory,
             string orgName,
             string headSha,
