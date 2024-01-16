@@ -38,7 +38,7 @@ using ContributorLicenseAgreement.Core.Handlers.Model;
             this.httpClientFactory = httpClientFactory;
         }
 
-        internal async Task<Comment> GenerateClaCommentAsync(Cla primitive, GitOpsPayload payload, bool cla, string gitHubUser)
+        internal async Task<Comment> GenerateClaCommentAsync(Cla primitive, GitOpsPayload payload, bool cla, string gitHubUser
         {
             var gitHubAppName = await clientAdapterFactory.GetAppNameBasedOnInstallationId(
                 payload.PlatformContext.OrganizationName,
