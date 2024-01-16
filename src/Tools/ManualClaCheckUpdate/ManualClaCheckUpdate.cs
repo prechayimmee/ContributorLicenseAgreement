@@ -44,7 +44,7 @@ namespace ManualClaCheckUpdate
             });
         }
 
-        private static void UpdateClaCheck(
+        private static void UpdateClaCheckWithExceptionHandlingAndLogging(
             IHttpClientFactory httpClientFactory,
             string orgName,
             string headSha,
@@ -88,7 +88,16 @@ namespace ManualClaCheckUpdate
                 Output = new NewCheckRunOutput(Constants.CheckSuccessTitle, Constants.CheckSummary),
                 Conclusion = CheckConclusion.Success
             };
-            client.CreateCheckRunAsync(repoId, checkRun).Wait();
+                            try
+                {
+                    client.CreateCheckRunAsync(repoId, checkRun).Wait();
+                }
+                catch(Exception ex)
+                {
+                    // Log the exception
+                    Console.WriteLine(ex.Message);
+                }
+            
         }
     }
 }
