@@ -94,7 +94,7 @@ using ContributorLicenseAgreement.Core.Handlers.Model;
                 $"{typeof(CLA).Namespace}.CLA-Error-Company.mustache", mustacheParams);
         }
 
-        internal Comment GenerateFailureComment(string gitHubUser, string company, string gitHubAppName, GitOpsPayload payload)
+        internal Comment GenerateFailureComment(string gitHubUser, string company, string gitHubAppName, GitOpsPayload payload, string gitHubAppName, GitOpsPayload payload)
         {
             var gitHubAppName = clientAdapterFactory.GetAppNameBasedOnInstallationId(
                 payload.PlatformContext.OrganizationName,
