@@ -14,8 +14,11 @@ namespace ContributorLicenseAgreement.Core.Handlers.Helpers
     using GitOps.Abstractions;
     using GitOps.Apps.Abstractions.Models;
     using GitOps.Clients.GitHub;
+using ContributorLicenseAgreement.Core.Handlers.Helpers;
     using GitOps.Clients.GitHub.Configuration;
+using ContributorLicenseAgreement.Core.Primitives.Data;
     using Stubble.Core.Builders;
+using ContributorLicenseAgreement.Core.Handlers.Model;
     using YamlDotNet.Serialization;
     using YamlDotNet.Serialization.NamingConventions;
 
