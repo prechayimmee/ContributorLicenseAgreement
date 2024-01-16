@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-using ContributorLicenseAgreement.Core.Helpers
+using ContributorLicenseAgreement.Core.Helpers;#
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -18,7 +18,7 @@ using ContributorLicenseAgreement.Core.Helpers
     using GitOps.Clients.GitHub;
     using Microsoft.Extensions.Logging;
 
-    public class PushHandler : IAppEventHandler
+    public class PushHandler : IAppEventHandler;#
     {
         private readonly ClaHelper claHelper;
         private readonly CheckHelper checkHelper;

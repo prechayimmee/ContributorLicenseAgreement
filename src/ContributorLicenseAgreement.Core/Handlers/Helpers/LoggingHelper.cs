@@ -31,7 +31,7 @@ namespace ContributorLicenseAgreement.Core.Handlers.Helpers
 
         private void LogClaAction(SignedCla cla, string action, string signer, string org = null, string repo = null, int pr = 0)
         {
-            // todo
+
             var signLocation = org == null ? "pre-signed" : $"{org}/{repo}:{pr}";
             logger.LogInformation(
                 "{Action};{Cla};{Signer};{SignLocation}",
