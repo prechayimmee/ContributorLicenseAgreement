@@ -44,15 +44,23 @@ namespace ManualClaCheckUpdate
             });
         }
 
-        private static void UpdateClaCheckWithExceptionHandlingAndLogging(
+        private static void UpdateClaCheckWithExceptionHandlingAndLoggingWithTryCatch(
             IHttpClientFactory httpClientFactory,
-            string orgName,
-            string headSha,
-            long repoId,
-            string privateKey,
-            string webhookSecret,
-            string appId,
+            
+            string orgName, 
+            
+            string headSha, 
+            
+            long repoId, 
+            
+            string privateKey, 
+            
+            string webhookSecret, 
+            
+            string appId, 
+            
             string appName)
+        {
         {
             var appFlavorSettings = new PlatformAppFlavorSettings
             {
@@ -90,7 +98,15 @@ namespace ManualClaCheckUpdate
             };
                             try
                 {
-                    client.CreateCheckRunAsync(repoId, checkRun).Wait();
+                    try
+                            {
+                                client.CreateCheckRunAsync(repoId, checkRun).Wait();
+                            }
+                            catch(Exception ex)
+                            {
+                                // Log the exception
+                                Console.WriteLine(ex.Message);
+                            }
                 }
                 catch(Exception ex)
                 {

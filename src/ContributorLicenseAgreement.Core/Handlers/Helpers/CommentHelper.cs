@@ -14,8 +14,13 @@ namespace ContributorLicenseAgreement.Core.Handlers.Helpers
     using GitOps.Abstractions;
     using GitOps.Apps.Abstractions.Models;
     using GitOps.Clients.GitHub;
+using ContributorLicenseAgreement.Core.Primitives.Data;
+using ContributorLicenseAgreement.Core.Handlers.Model;
     using GitOps.Clients.GitHub.Configuration;
+using ContributorLicenseAgreement.Core.Handlers.Model;
+using ContributorLicenseAgreement.Core.Primitives.Data;
     using Stubble.Core.Builders;
+using ContributorLicenseAgreement.Core.Handlers.Model;
     using YamlDotNet.Serialization;
     using YamlDotNet.Serialization.NamingConventions;
 
@@ -35,7 +40,7 @@ namespace ContributorLicenseAgreement.Core.Handlers.Helpers
             this.httpClientFactory = httpClientFactory;
         }
 
-        internal async Task<Comment> GenerateClaCommentAsync(Cla primitive, GitOpsPayload payload, bool cla, string gitHubUser)
+        internal async Task<Comment> GenerateClaCommentAsync(Cla primitive, GitOpsPayload payload, bool cla, string gitHubUser
         {
             var gitHubAppName = await clientAdapterFactory.GetAppNameBasedOnInstallationId(
                 payload.PlatformContext.OrganizationName,
@@ -78,7 +83,7 @@ namespace ContributorLicenseAgreement.Core.Handlers.Helpers
                 $"{typeof(CLA).Namespace}.CLA.mustache", mustacheParams);
         }
 
-        internal Comment GenerateFailureComment(string gitHubUser, string company)
+        internal Comment GenerateFailureComment(string gitHubUser, string company, string gitHubAppName, GitOpsPayload payload)
         {
             var mustacheParams = new
             {
@@ -90,7 +95,7 @@ namespace ContributorLicenseAgreement.Core.Handlers.Helpers
                 $"{typeof(CLA).Namespace}.CLA-Error-Company.mustache", mustacheParams);
         }
 
-        internal Comment GenerateFailureComment(GitOpsPayload payload, string gitHubUser)
+        internal Comment GenerateFailureComment(string gitHubUser, string company, string gitHubAppName, GitOpsPayload payload, string gitHubAppName, GitOpsPayload payload)
         {
             var gitHubAppName = clientAdapterFactory.GetAppNameBasedOnInstallationId(
                 payload.PlatformContext.OrganizationName,
@@ -118,6 +123,11 @@ namespace ContributorLicenseAgreement.Core.Handlers.Helpers
                 mustacheParams);
 
             return new Comment
+            {
+                MarkdownText = details,
+                CommentType = commentType
+            };
+        
             {
                 MarkdownText = details,
                 CommentType = CommentType.RawComment
