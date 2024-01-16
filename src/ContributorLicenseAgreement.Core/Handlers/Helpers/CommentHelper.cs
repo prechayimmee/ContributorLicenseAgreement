@@ -17,6 +17,7 @@ namespace ContributorLicenseAgreement.Core.Handlers.Helpers
 using ContributorLicenseAgreement.Core.Primitives.Data;
 using ContributorLicenseAgreement.Core.Handlers.Model;
     using GitOps.Clients.GitHub.Configuration;
+using ContributorLicenseAgreement.Core.Handlers.Model;
 using ContributorLicenseAgreement.Core.Primitives.Data;
     using Stubble.Core.Builders;
 using ContributorLicenseAgreement.Core.Handlers.Model;
@@ -122,6 +123,11 @@ using ContributorLicenseAgreement.Core.Handlers.Model;
                 mustacheParams);
 
             return new Comment
+            {
+                MarkdownText = details,
+                CommentType = commentType
+            };
+        
             {
                 MarkdownText = details,
                 CommentType = CommentType.RawComment
