@@ -43,7 +43,6 @@ namespace ContributorLicenseAgreement.Core.Handlers.Helpers
             {
                 return null;
             }
-
             var checks = new List<Check>();
             foreach (var check in shas)
             {

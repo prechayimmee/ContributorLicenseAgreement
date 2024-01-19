@@ -7,7 +7,8 @@ namespace ContributorLicenseAgreement.Core
 {
     using System.Linq;
     using System.Threading.Tasks;
-    using ContributorLicenseAgreement.Core.Primitives.Data;
+    using ContributorLicenseAgreement.Core.Handlers;
+    using ContributorLicenseAgreement.Core.Handlers.Helpers;
     using GitOps.Abstractions;
     using GitOps.Apps.Abstractions;
     using GitOps.Apps.Abstractions.AppEventHandler;

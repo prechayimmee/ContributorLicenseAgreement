@@ -26,6 +26,20 @@ namespace ContributorLicenseAgreement.Core.Handlers.Helpers
         {
             LogClaAction(cla, "cla_terminated", signer, org, repo, pr);
         }
+        
+        private void LogClaAction(SignedCla cla, string action, string signer, string org = null, string repo = null, int pr = 0)
+        {
+            // todo
+            var signLocation = org == null ? "pre-signed" : $"{org}/{repo}:{pr}";
+            logger.LogInformation(
+                "{Action};{Cla};{Signer};{SignLocation}",
+                action,
+                cla.GetParsableLog(),
+                signer,
+                signLocation);
+        }
+            LogClaAction(cla, "cla_terminated", signer, org, repo, pr);
+        }
 
         private void LogClaAction(SignedCla cla, string action, string signer, string org = null, string repo = null, int pr = 0)
         {
@@ -38,5 +52,7 @@ namespace ContributorLicenseAgreement.Core.Handlers.Helpers
                 signer,
                 signLocation);
         }
+    }
+}
     }
 }

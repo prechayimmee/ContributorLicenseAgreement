@@ -15,7 +15,16 @@ namespace ContributorLicenseAgreement.Core.Handlers
     using GitOps.Abstractions;
     using GitOps.Apps.Abstractions.AppEventHandler;
     using GitOps.Apps.Abstractions.AppStates;
-    using GitOps.Apps.Abstractions.Models;
+    using GitOps.Abstractions.Models;
+    using GitOps.Abstractions;
+    using GitOps.Apps.Abstractions.AppEventHandler;
+    using GitOps.Apps.Abstractions.AppStates;
+    using GitOps.Clients.GitHub;
+    using GitOps.Clients.GitHub.Configuration;
+    using Octokit;
+    using Check = ContributorLicenseAgreement.Core.Handlers.Model.Check;
+    using PullRequest = GitOps.Abstractions.PullRequest;
+    using PullRequestFile = GitOps.Abstractions.PullRequestFile;
     using GitOps.Clients.GitHub;
     using GitOps.Clients.GitHub.Configuration;
     using Microsoft.Extensions.Logging;
@@ -35,6 +44,45 @@ namespace ContributorLicenseAgreement.Core.Handlers
         private readonly LoggingHelper loggingHelper;
         private readonly ILogger<CLA> logger;
 
+        public IssueCommentHandler(
+            AppState appState,
+            IGitHubClientAdapterFactory factory,
+            PlatformAppFlavorSettings flavorSettings,
+            ClaHelper claHelper,
+            CheckHelper checkHelper,
+            CommentHelper commentHelper,
+            LoggingHelper loggingHelper,
+            ILogger<CLA> logger)
+        {
+            this.appState = appState;
+            this.factory = factory;
+            this.flavorSettings = flavorSettings;
+            this.claHelper = claHelper;
+            this.checkHelper = checkHelper;
+            this.commentHelper = commentHelper;
+            this.loggingHelper = loggingHelper;
+            this.logger = logger;
+        }
+
+        public PlatformEventActions EventType => PlatformEventActions.Issue_Comment;
+
+        public async Task<object> HandleEvent(GitOpsPayload gitOpsPayload, AppOutput appOutput, params object[] parameters)
+        {
+            if (gitOpsPayload.PlatformContext.IsGitOpsTriggeredEvent)
+            {
+                return appOutput;
+            }
+
+            if (gitOpsPayload.PullRequestComment == null)
+            {
+                return appOutput;
+            }
+
+            if (parameters.Length == 0)
+            {
+                logger.LogInformation("No primitive available");
+                return appOutput;
+            }
         public IssueCommentHandler(
             AppState appState,
             IGitHubClientAdapterFactory factory,
