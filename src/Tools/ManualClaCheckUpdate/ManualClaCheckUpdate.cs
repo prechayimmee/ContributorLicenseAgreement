@@ -54,7 +54,7 @@ namespace ManualClaCheckUpdate
             string appId,
             string appName)
         {
-            var appFlavorSettings = new PlatformAppFlavorSettings
+            var appFlavorSettings = new PlatformAppFlavorSettings()
             {
                 PlatformAppsSettings = new Dictionary<string, PlatformAppSettings>
                 {
@@ -80,7 +80,7 @@ namespace ManualClaCheckUpdate
                     });
             var dict = new Dictionary<string, IGitHubJwtFactory> { { Dns, jwtFactory } };
             var ghFactory = new GitHubClientAdapterFactory(dict, appFlavorSettings, new AppTelemetry(null, null), httpClientFactory);
-            var client = ghFactory.GetGitHubClientAdapterAsync(orgName, Dns).Result;
+            var client = ghFactory.GetGitHubClientAdapterAsync(orgName, Dns).GetAwaiter().GetResult();
 
             var checkRun = new NewCheckRun(Constants.CheckName, headSha)
             {
