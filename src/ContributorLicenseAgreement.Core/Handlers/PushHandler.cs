@@ -8,7 +8,7 @@ namespace ContributorLicenseAgreement.Core.Handlers
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using ContributorLicenseAgreement.Core;
+    using ContributorLicenseAgreement.Core.Handlers.Helpers;
     using ContributorLicenseAgreement.Core.Handlers.Helpers;
     using ContributorLicenseAgreement.Core.Primitives.Data;
     using GitOps.Abstractions;
@@ -86,7 +86,9 @@ namespace ContributorLicenseAgreement.Core.Handlers
                     gitOpsPayload.PlatformContext.OrganizationName, gitOpsPayload.PlatformContext.Dns));
             }
 
-            var (removals, additions) = GetDifferences(file);
+            var fileDifferences = GetDifferences(file);
+            var removals = fileDifferences.Item1;
+            var additions = fileDifferences.Item2;
 
             var companyName =
                 primitive.SignRepos.First(r => r.RepoName.Equals(gitOpsPayload.Push.RepositoryName)).CompanyName;
