@@ -19,7 +19,7 @@ namespace ContributorLicenseAgreement.Core.Handlers.Helpers
     using YamlDotNet.Serialization;
     using YamlDotNet.Serialization.NamingConventions;
 
-    public class CommentHelper
+    public class CommentHelperUpdated
     {
         private readonly PlatformAppFlavorSettings flavorSettings;
         private readonly IGitHubClientAdapterFactory clientAdapterFactory;
