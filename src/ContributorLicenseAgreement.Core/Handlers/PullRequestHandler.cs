@@ -17,7 +17,7 @@ namespace ContributorLicenseAgreement.Core.Handlers
     using GitOps.Clients.Aad;
     using GitOps.Clients.Ospo;
     using Microsoft.Extensions.Logging;
-    using Check = ContributorLicenseAgreement.Core.Handlers.Model.Check;
+    using ContributorLicenseAgreement.Core.Handlers.Model.Check;
 
     internal class PullRequestHandler : IAppEventHandler
     {
@@ -53,7 +53,7 @@ namespace ContributorLicenseAgreement.Core.Handlers
 
             var primitive = primitivesData.First();
 
-            if (gitOpsPayload.PlatformContext.ActionType == PlatformEventActions.Closed)
+            if (gitOpsPayload.PlatformContext.ActionType == PlatformEventActions.Closed || gitOpsPayload.PlatformContext.ActionType == PlatformEventActions.Unknown)
             {
                 appOutput.States = await checkHelper.CleanUpChecks(gitOpsPayload, primitive.Content);
                 logger.LogInformation("Checks cleaned up");
