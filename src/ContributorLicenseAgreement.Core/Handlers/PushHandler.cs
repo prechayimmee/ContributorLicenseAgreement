@@ -17,6 +17,10 @@ namespace ContributorLicenseAgreement.Core.Handlers
     using GitOps.Apps.Abstractions.Models;
     using GitOps.Clients.GitHub;
     using Microsoft.Extensions.Logging;
+using ContributorLicenseAgreement.Core;
+using ContributorLicenseAgreement.Core.Handlers.Helpers;
+using ContributorLicenseAgreement.Core.Primitives.Data;
+using ContributorLicenseAgreement.Core.Handlers.Model;
 
     public class PushHandler : IAppEventHandler
     {
@@ -91,8 +95,11 @@ namespace ContributorLicenseAgreement.Core.Handlers
             var companyName =
                 primitive.SignRepos.First(r => r.RepoName.Equals(gitOpsPayload.Push.RepositoryName)).CompanyName;
 
-            var (states, clas) = claHelper.CreateClas(
-                additions, companyName, primitive.Content);
+            var states = appOutput.States ?? new States
+            {
+                StateCollection = new Dictionary<string, object>()
+            };
+var clas = new List<SignedCla>();
 
             List<Model.Check> checks = null;
             foreach (var user in removals)
@@ -105,6 +112,14 @@ namespace ContributorLicenseAgreement.Core.Handlers
                 logger.LogInformation(
                     "CLA terminated on behalf of GitHub-user: {User} for {Company} by {Sender}", user, companyName, gitOpsPayload.Push.Sender);
                 loggingHelper.LogClaTerminated(cla, gitOpsPayload.Push.Sender);
+
+if (clas.Any())
+{
+    foreach (var cla in clas)
+    {
+        appOutput.Comment = await commentHelper.GenerateClaCommentAsync(primitive, gitOpsPayload, true, cla.GitHubUser);
+    }
+}
             }
 
             foreach (var cla in clas)
@@ -115,6 +130,14 @@ namespace ContributorLicenseAgreement.Core.Handlers
                 logger.LogInformation(
                     "CLA signed on behalf of GitHub-user: {User} for {Company} by {Sender}", cla.GitHubUser, companyName, gitOpsPayload.Push.Sender);
                 loggingHelper.LogClaSigned(cla, gitOpsPayload.Push.Sender);
+            }
+
+            if (clas.Any())
+            {
+                foreach (var cla in clas)
+                {
+                    appOutput.Comment = await commentHelper.GenerateClaCommentAsync(primitive, gitOpsPayload, true, cla.GitHubUser);
+                }
             }
 
             appOutput.States = states;
