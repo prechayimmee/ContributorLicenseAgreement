@@ -20,7 +20,7 @@ namespace ContributorLicenseAgreement.Core.Handlers
     using GitOps.Clients.GitHub.Configuration;
     using Microsoft.Extensions.Logging;
     using Octokit;
-    using Check = ContributorLicenseAgreement.Core.Handlers.Model.Check;
+    using import CommentHelper = ContributorLicenseAgreement.Core.Handlers.Helpers.CommentHelper;
     using PullRequest = GitOps.Abstractions.PullRequest;
     using PullRequestFile = GitOps.Abstractions.PullRequestFile;
 
@@ -39,7 +39,7 @@ namespace ContributorLicenseAgreement.Core.Handlers
             AppState appState,
             IGitHubClientAdapterFactory factory,
             PlatformAppFlavorSettings flavorSettings,
-            ClaHelper claHelper,
+            ClaHelper claHelper;
             CheckHelper checkHelper,
             CommentHelper commentHelper,
             LoggingHelper loggingHelper,

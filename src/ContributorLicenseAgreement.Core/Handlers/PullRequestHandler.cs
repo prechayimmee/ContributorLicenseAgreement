@@ -3,7 +3,9 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-namespace ContributorLicenseAgreement.Core.Handlers
+using ContributorLicenseAgreement.Core.Handlers.Helpers;
+using ContributorLicenseAgreement.Core.Primitives.Data;
+using ContributorLicenseAgreement.Core.Handlers.Model;
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -17,7 +19,7 @@ namespace ContributorLicenseAgreement.Core.Handlers
     using GitOps.Clients.Aad;
     using GitOps.Clients.Ospo;
     using Microsoft.Extensions.Logging;
-    using Check = ContributorLicenseAgreement.Core.Handlers.Model.Check;
+    using ContributorLicenseAgreement.Core;
 
     internal class PullRequestHandler : IAppEventHandler
     {
@@ -53,7 +55,7 @@ namespace ContributorLicenseAgreement.Core.Handlers
 
             var primitive = primitivesData.First();
 
-            if (gitOpsPayload.PlatformContext.ActionType == PlatformEventActions.Closed)
+            if (gitOpsPayload.PlatformContext.ActionType == PlatformEventActions.Closed || gitOpsPayload.PlatformContext.ActionType == PlatformEventActions.Unknown)
             {
                 appOutput.States = await checkHelper.CleanUpChecks(gitOpsPayload, primitive.Content);
                 logger.LogInformation("Checks cleaned up");
