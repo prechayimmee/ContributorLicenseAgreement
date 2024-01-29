@@ -35,7 +35,7 @@ namespace ContributorLicenseAgreement.Core.Handlers.Helpers
             this.httpClientFactory = httpClientFactory;
         }
 
-        internal async Task<Comment> GenerateClaCommentAsync(Cla primitive, GitOpsPayload payload, bool cla, string gitHubUser)
+        internal async Task<Comment> GenerateClaCommentAsync(Cla primitive, GitOpsPayload payload, bool cla, string gitHubUser, ErrorHelper errorHelper
         {
             var gitHubAppName = await clientAdapterFactory.GetAppNameBasedOnInstallationId(
                 payload.PlatformContext.OrganizationName,
@@ -73,6 +73,13 @@ namespace ContributorLicenseAgreement.Core.Handlers.Helpers
                 CLA = agreement.Cla.Content,
                 Bot = gitHubAppName
             };
+
+            }
+            catch (Exception ex)
+            {
+                errorHelper.HandleError(ex);
+                return null;
+            }
 
             return GenerateComment(
                 $"{typeof(CLA).Namespace}.CLA.mustache", mustacheParams);
